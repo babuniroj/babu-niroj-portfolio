@@ -1,0 +1,94 @@
+media:
+  - name: article_images
+    label: लेखका तस्बिरहरू
+    input: assets/images/articles
+    output: /assets/images/articles
+    rename: safe
+    extensions: [jpg, jpeg, png, webp]
+
+content:
+  - name: posts
+    label: लेखहरू
+    type: collection
+    path: content/posts
+    format: json
+    filename:
+      template: "{slug}.json"
+      field: create
+    view:
+      primary: title
+      sort: date
+      order: desc
+      fields: [title, date, category, published]
+    fields:
+      - name: title
+        label: शीर्षक
+        type: string
+        required: true
+      - name: slug
+        label: URL Slug
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: "सानो English अक्षर, अंक र hyphen (-) मात्र प्रयोग गर्नुहोस्।"
+        description: "उदाहरण: bhusurvey-kin-mahatwapurna"
+      - name: date
+        label: प्रकाशित मिति
+        type: date
+        required: true
+      - name: category
+        label: श्रेणी
+        type: select
+        required: true
+        options:
+          values: [Surveying, Mapping, GIS, Geospatial, Field Work, Technology, विचार, अन्य]
+      - name: excerpt
+        label: छोटो परिचय
+        type: text
+        required: true
+        options:
+          maxlength: 220
+      - name: cover
+        label: मुख्य तस्बिर
+        type: image
+        options:
+          media: article_images
+      - name: tags
+        label: Tags
+        type: string
+        list: true
+      - name: published
+        label: प्रकाशित गर्ने
+        type: boolean
+        required: true
+      - name: seo_title
+        label: SEO Title
+        type: string
+        description: "खाली छोडे लेखको शीर्षक प्रयोग हुन्छ।"
+        options:
+          maxlength: 60
+      - name: seo_description
+        label: SEO Description
+        type: text
+        description: "Google search का लागि करिब 150–160 अक्षर राम्रो हुन्छ।"
+        options:
+          maxlength: 160
+      - name: body
+        label: मुख्य लेख
+        type: rich-text
+        required: true
+        options:
+          format: html
+          media: article_images
+          switcher: true
+
+settings:
+  content:
+    merge: true
+  commit:
+    templates:
+      create: "लेख थपियो: {filename}"
+      update: "लेख अद्यावधिक: {filename}"
+      delete: "लेख हटाइयो: {filename}"
+      rename: "लेखको फाइल नाम परिवर्तन: {oldFilename} -> {newFilename}"

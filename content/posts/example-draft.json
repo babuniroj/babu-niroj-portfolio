@@ -1,0 +1,13 @@
+{
+  "title": "नमुना लेख — Pages CMS परीक्षण",
+  "slug": "example-draft",
+  "date": "2026-09-18",
+  "category": "Surveying",
+  "excerpt": "यो Pages CMS र लेख प्रणाली परीक्षणका लागि राखिएको draft हो। प्रकाशित नगरेसम्म वेबसाइटमा देखिँदैन।",
+  "cover": "",
+  "tags": ["Surveying", "नेपाल"],
+  "published": false,
+  "seo_title": "",
+  "seo_description": "",
+  "body": "<p>Pages CMS बाट यो सामग्री सम्पादन गर्न सकिन्छ।</p>"
+}
