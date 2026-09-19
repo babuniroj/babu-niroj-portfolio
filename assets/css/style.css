@@ -274,3 +274,59 @@
 .social-media-link[aria-label="TikTok"]:hover{background:#171217;border-color:#171217;color:#fff;box-shadow:0 9px 22px rgba(37,244,238,.14)}
 .social-media-link:hover .social-media-icon{background:rgba(255,255,255,.16);color:#fff}
 .social-media-link:hover small{color:rgba(255,255,255,.78)}
+
+/* v3.17 — subtle hero identity motion */
+.compass-svg{
+  animation:heroCompassFloat 8s ease-in-out infinite;
+  will-change:transform;
+}
+@keyframes heroCompassFloat{
+  0%,100%{transform:translate3d(0,0,0) rotate(0deg)}
+  25%{transform:translate3d(-5px,7px,0) rotate(-1deg)}
+  50%{transform:translate3d(3px,11px,0) rotate(.8deg)}
+  75%{transform:translate3d(6px,4px,0) rotate(-.5deg)}
+}
+.hero-copy-v31 .hello,
+.hero-copy-v31 h1,
+.hero-copy-v31 .role{
+  opacity:0;
+  animation-fill-mode:forwards;
+}
+.hero-copy-v31 .hello{animation:heroHelloReveal .55s ease-out .12s forwards}
+.hero-copy-v31 h1{
+  animation:heroNameReveal 1.05s cubic-bezier(.22,.8,.24,1) .42s forwards;
+  clip-path:inset(0 100% 0 0);
+  position:relative;
+}
+.hero-copy-v31 .role{animation:heroRoleReveal .65s ease-out 1.35s forwards}
+@keyframes heroHelloReveal{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+@keyframes heroNameReveal{0%{opacity:0;clip-path:inset(0 100% 0 0);transform:translateY(7px)}20%{opacity:1}100%{opacity:1;clip-path:inset(0 0 0 0);transform:none}}
+@keyframes heroRoleReveal{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){
+  .compass-svg{animation:none}
+  .hero-copy-v31 .hello,.hero-copy-v31 h1,.hero-copy-v31 .role{animation:none;opacity:1;transform:none;clip-path:none}
+}
+
+/* v3.20 — FIX: keep v3.17 Compass/hello/role motion; only make the Nepali name Devanagari-safe */
+.hero-copy-v31 h1{
+  opacity:0;
+  overflow:visible !important;
+  clip-path:none !important;
+  -webkit-clip-path:none !important;
+  animation:heroNameRevealSafe 1.05s cubic-bezier(.22,.8,.24,1) .42s forwards !important;
+  will-change:opacity,transform,filter;
+}
+@keyframes heroNameRevealSafe{
+  0%{opacity:0;transform:translateY(12px);filter:blur(3px)}
+  100%{opacity:1;transform:translateY(0);filter:blur(0)}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-copy-v31 h1{
+    animation:none !important;
+    opacity:1 !important;
+    transform:none !important;
+    filter:none !important;
+    clip-path:none !important;
+  }
+}
+
